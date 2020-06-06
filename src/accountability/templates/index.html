@@ -1,7 +1,131 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accountability</title>
+
+    <style>
+      /* <!-- */
+
+      /* BEGIN STYLE */
+      html {
+        color: white;
+        background: black;
+
+        font-family: Georgia, serif;
+      }
+
+      a, a:link, a:visited, a:hover, a:active {
+        color: white;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .police {
+        color: blue;
+      }
+
+      .consequences {
+        color: red;
+      }
+      /* END STYLE */
+
+      /* BEGIN LAYOUT */
+
+      html {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      body {
+        width: 80rem;
+      }
+
+      main {
+        margin-bottom: 5rem;
+      }
+
+      footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      footer p {
+        margin-bottom: 1rem;
+      }
+
+      footer .licenses {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      footer .licenses div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      footer .licenses div span {
+        margin-left: 1rem;
+      }
+
+      /* END LAYOUT */
+
+      /* --> */
+    </style>
   </head>
+
   <body>
-    <h1>Hello, world</h1>
+    <main>
+      <table>
+        <tr>
+          <th>Victim</th>
+          <th>Video</th>
+          <th class='police'>Murdered by</th>
+          <th class='consequences'>Consequences</th>
+        </tr>
+
+        {% for murder in murders %}
+          <tr>
+            <td>{{ murder.victim }}</td>
+            <td><a href='{{ murder.video }}'>Video</a></td>
+
+            <td class='police'>
+              <ul>
+                {% for murderer in murder.murderers.all %}
+                  <li>{{ murderer.name }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+
+            <td class='consequences'>
+              <ul>
+                {% for consequence in murder.consequences.all %}
+                  <li>{{ consequence.text }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </main>
+
+    <footer>
+      <p>© 2020 David Kerkeslager</p>
+      <p>Site built with <a href="https://www.djangoproject.com/">Django</a>.</p>
+      <section class="licenses">
+        Licenses:
+        <div>
+          <span>Content: <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></span>
+          <span>Code: <a rel="license" href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3.0</a></span>
+        </div>
+      </section>
+    </footer>
   </body>
 </html>
